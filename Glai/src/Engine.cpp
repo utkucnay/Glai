@@ -3,11 +3,11 @@
 #include "Thread/ThreadSystem.h"
 #include "Thread/JobSystem.h"
 
-Engine::Engine::~Engine()
+Glai::Engine::~Engine()
 {
 }
 
-void Engine::Engine::EngineStart()
+void Glai::Engine::EngineStart()
 {
 	ENG_CORE_LOG("Engine Start")
 
@@ -35,7 +35,7 @@ void Engine::Engine::EngineStart()
 	Singleton<JobSystem::JobSystem> jobInit();
 }
 
-void Engine::Engine::EngineUpdate()
+void Glai::Engine::EngineUpdate()
 {
 	glfwPollEvents();
 
@@ -48,12 +48,12 @@ void Engine::Engine::EngineUpdate()
 	glfwSwapBuffers(window);
 }
 
-void Engine::Engine::EngineOnEnd()
+void Glai::Engine::EngineOnEnd()
 {
 	glfwTerminate();
 }
 
-bool&& Engine::Engine::IsEngineWindowClosed() const
+bool&& Glai::Engine::IsEngineWindowClosed() const
 {
 	return std::move(!glfwWindowShouldClose(window));
 }

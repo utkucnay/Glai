@@ -1,7 +1,7 @@
 #include <Engine.h>
 
 int main() {
-	Engine::Engine engine;
+	Glai::Engine engine;
 
 	engine.EngineStart();
 

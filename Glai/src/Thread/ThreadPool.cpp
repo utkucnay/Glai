@@ -1,12 +1,12 @@
 #include "EngineCore.h"
 #include "ThreadPool.h"
 
-Engine::JobSystem::ThreadPool::ThreadPool(uint8_t numThreads)
+Glai::JobSystem::ThreadPool::ThreadPool(uint8_t numThreads)
 {
     this->numThreads = numThreads;
 }
 
-void Engine::JobSystem::ThreadPool::Start()
+void Glai::JobSystem::ThreadPool::Start()
 {
     threads.resize(numThreads);
     for (uint32_t i = 0; i < numThreads; i++) {
@@ -16,7 +16,7 @@ void Engine::JobSystem::ThreadPool::Start()
     }
 }
 
-void Engine::JobSystem::ThreadPool::QueueJob(Job* job)
+void Glai::JobSystem::ThreadPool::QueueJob(Job* job)
 {
     {
         std::unique_lock<std::mutex> lock(queue_mutex);
@@ -25,7 +25,7 @@ void Engine::JobSystem::ThreadPool::QueueJob(Job* job)
     mutex_condition.notify_one();
 }
 
-void Engine::JobSystem::ThreadPool::Stop()
+void Glai::JobSystem::ThreadPool::Stop()
 {
     {
         std::unique_lock<std::mutex> lock(queue_mutex);
@@ -38,7 +38,7 @@ void Engine::JobSystem::ThreadPool::Stop()
     threads.clear();
 }
 
-bool Engine::JobSystem::ThreadPool::Busy()
+bool Glai::JobSystem::ThreadPool::Busy()
 {
     bool poolbusy;
     {
@@ -48,7 +48,7 @@ bool Engine::JobSystem::ThreadPool::Busy()
     return poolbusy;
 }
 
-void Engine::JobSystem::ThreadPool::ThreadLoop()
+void Glai::JobSystem::ThreadPool::ThreadLoop()
 {
     while (true) {
         Job* job;

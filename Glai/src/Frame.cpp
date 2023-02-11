@@ -1,22 +1,22 @@
 #include "EngineCore.h"
 #include "Frame.h"
 
-Engine::Frame::~Frame()
+Glai::Frame::~Frame()
 {
 }
 
-void Engine::Frame::FrameInit() 
+void Glai::Frame::FrameInit()
 {
 }
 
-void Engine::Frame::FramePhase1()
+void Glai::Frame::FramePhase1()
 {
 }
 
-void Engine::Frame::FramePhase2()
+void Glai::Frame::FramePhase2()
 {
 }
 
-void Engine::Frame::FramePhase3()
+void Glai::Frame::FramePhase3()
 {
 }
