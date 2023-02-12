@@ -2,7 +2,7 @@
 
 namespace Glai::Asset
 {
-	class SpriteAsset
+	class Texture2DAsset
 	{
 		
 	};

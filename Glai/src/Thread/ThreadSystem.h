@@ -4,9 +4,9 @@
 #include "ThreadPool.h"
 
 #define AUDIO_JOB_THREAD_NUM 2
-#define HIGH_JOB_THREAD_NUM 4
-#define PHYSICS_JOB_THREAD_NUM 4
-#define LOW_JOB_THREAD_NUM 4
+#define HIGH_JOB_THREAD_NUM 8
+#define PHYSICS_JOB_THREAD_NUM 8
+#define LOW_JOB_THREAD_NUM 8
 
 namespace Glai::JobSystem
 {

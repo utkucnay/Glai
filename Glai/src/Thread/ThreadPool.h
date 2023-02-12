@@ -21,7 +21,7 @@ namespace Glai::JobSystem
         std::mutex                  queue_mutex;
         std::condition_variable     mutex_condition;
         std::vector<std::thread>    threads;
-        std::queue<Job*>             jobs;
+        std::queue<Job*>            jobs;
 
         uint32_t                    numThreads;
     };

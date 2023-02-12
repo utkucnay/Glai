@@ -25,6 +25,7 @@
 #include "GLFW/glfw3.h"
 
 #include "spdlog/spdlog.h"
+#include "glm/glm.hpp"
 
 #include <Windows.h>
 
@@ -35,6 +36,12 @@ namespace Glai
 
 	template<typename T>
 	using Scope = std::unique_ptr<T>;
+
+    template<typename T>
+    using List = std::vector<T>;
+
+    template<class T, size_t Tsize>
+    using Array = std::array<T, Tsize>;
 
 	template<typename T, class... Tin>
 	Ref<T>&& CreateRef(Tin... in) 
@@ -74,5 +81,19 @@ namespace Glai
         const Type& operator *() const { return *instance; }
     private:
         static inline Scope<Type> instance = nullptr;
+    };
+
+    class HashHelper 
+    {
+    public:
+        static int HashFunction(std::string key) {
+            int hashCode = 0;
+            for (int i = 0; i < key.length(); i++) {
+                hashCode += key[i] * pow(PRIME_CONST, i);
+            }
+            return hashCode;
+        }
+    private:
+        static const int PRIME_CONST = 10;
     };
 }

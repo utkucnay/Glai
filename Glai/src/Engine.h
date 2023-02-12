@@ -1,5 +1,6 @@
 #pragma once
 #include "Frame.h"
+#include "Renderer/Vertex.h"
 
 namespace Glai
 {

@@ -19,9 +19,11 @@ set(src
 	src/ECS/GameSystem.h
 	src/ECS/Systembase.h
 
+	src/Renderer/Texture2D.h
+	src/Renderer/Vertex.h
 	src/Renderer/Sprite.h
 
-	src/Asset/SpriteAsset.h
+	src/Asset/Texture2DAsset.h
 )
 
 add_library(Engine2D ${src})
@@ -34,6 +36,7 @@ add_subdirectory(vendor)
 target_link_libraries(Engine2D PUBLIC EnTT::EnTT)
 target_link_libraries(Engine2D PUBLIC GLAD)
 target_link_libraries(Engine2D PUBLIC glfw)
+target_link_libraries(Engine2D PUBLIC glm)
 target_link_libraries(Engine2D PUBLIC spdlog)
 target_link_libraries(Engine2D PUBLIC corona)
 
