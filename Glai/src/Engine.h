@@ -1,6 +1,7 @@
 #pragma once
 #include "Frame.h"
 #include "Renderer/Vertex.h"
+#include "Window.h"
 
 namespace Glai
 {
@@ -14,10 +15,10 @@ namespace Glai
 		void EngineStart();
 		void EngineUpdate();
 		void EngineOnEnd();
-		bool&& IsEngineWindowClosed() const;
+		bool IsEngineWindowClosed();
 
 	private:
 		Singleton<Frame> frame;
-		GLFWwindow* window;
+		Window* window;
 	};
 }

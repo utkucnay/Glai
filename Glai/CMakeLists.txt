@@ -23,6 +23,10 @@ set(src
 	src/Renderer/Vertex.h
 	src/Renderer/Sprite.h
 
+	src/Renderer/Shader/Shader.h
+	src/Renderer/Shader/Shader.cpp
+	src/Renderer/Shader/Shaders/VertexShader.glsl
+
 	src/Asset/Texture2DAsset.h
 )
 

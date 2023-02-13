@@ -5,7 +5,7 @@ int main() {
 
 	engine.EngineStart();
 
-	while (engine.IsEngineWindowClosed())
+	while (!engine.IsEngineWindowClosed())
 	{
 		engine.EngineUpdate();
 	}

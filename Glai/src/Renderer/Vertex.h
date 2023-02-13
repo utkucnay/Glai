@@ -14,13 +14,10 @@ namespace Glai::Renderer
 		glm::vec2 texCord;
 	};
 
-	class Quad
+	struct Quad
 	{
-	public:
 		Quad()
 		{
-			loc = glm::vec3(0, 0, 0);
-
 			vertexs.at(0) = Vertex(glm::vec3(0.5, 0.5, 0), glm::vec4(1, 1, 1, 1), glm::vec2(1, 1));
 			vertexs.at(1) = Vertex(glm::vec3(0.5, -0.5, 0), glm::vec4(1, 1, 1, 1), glm::vec2(0, 1));
 			vertexs.at(2) = Vertex(glm::vec3(-0.5, -0.5, 0), glm::vec4(1, 1, 1, 1), glm::vec2(0, 0));
@@ -33,9 +30,6 @@ namespace Glai::Renderer
 			indices.at(4) = 2;
 			indices.at(5) = 3;
 		}
-
-	public:
-		glm::vec3 loc;
 		Array<Vertex, 4> vertexs;
 		Array<int, 6> indices;
 	};
