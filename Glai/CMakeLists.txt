@@ -22,10 +22,17 @@ set(src
 	src/Renderer/Texture2D.h
 	src/Renderer/Vertex.h
 	src/Renderer/Sprite.h
+	src/Renderer/Sprite.cpp
+	src/Renderer/Camera.h
 
 	src/Renderer/Shader/Shader.h
 	src/Renderer/Shader/Shader.cpp
 	src/Renderer/Shader/Shaders/VertexShader.glsl
+	src/Renderer/Shader/Shaders/InstancedVertexShader.glsl
+	src/Renderer/Shader/Shaders/FragmentShader.glsl
+	src/Renderer/Shader/Shaders/InstancedFragmentShader.glsl
+
+	src/Renderer/Material/Material.h
 
 	src/Asset/Texture2DAsset.h
 )
@@ -45,3 +52,10 @@ target_link_libraries(Engine2D PUBLIC spdlog)
 target_link_libraries(Engine2D PUBLIC corona)
 
 target_include_directories(Engine2D PUBLIC src)
+
+source_group("Shader" 
+	FILES 	
+	src/Renderer/Shader/Shaders/VertexShader.glsl
+	src/Renderer/Shader/Shaders/InstancedFragmentShader.glsl
+	src/Renderer/Shader/Shaders/InstancedVertexShader.glsl
+	src/Renderer/Shader/Shaders/FragmentShader.glsl)

@@ -38,21 +38,21 @@ namespace Glai
 	using Scope = std::unique_ptr<T>;
 
     template<typename T>
-    using List = std::vector<T>;
+    using Vector = std::vector<T>;
 
     template<class T, size_t Tsize>
     using Array = std::array<T, Tsize>;
 
 	template<typename T, class... Tin>
-	Ref<T>&& CreateRef(Tin... in) 
+	Ref<T> CreateRef(Tin... in) 
 	{ 
-		return std::move(std::make_shared<T>(in...)); 
+		return std::make_shared<T>(in...); 
 	}
 
 	template<typename T, class... Tin>
-	Scope<T>&& CreateScope(Tin... in)
+	Scope<T> CreateScope(Tin... in)
 	{
-		return std::move(std::make_unique<T>(in...));
+		return std::make_unique<T>(in...);
 	}
 
     template <class T>

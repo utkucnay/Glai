@@ -7,6 +7,11 @@ namespace Glai
 	class Window
 	{
 	public:
+		struct WindowSize
+		{
+			int width, height;
+		};
+	public:
 		Window(int width, int height,const std::string& title, GLFWmonitor* monitor, GLFWwindow* share)
 		{
 			glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -15,17 +20,20 @@ namespace Glai
 
 			data = glfwCreateWindow(width, height, title.c_str(), monitor, share);
 
-			this->width = width;
-			this->height = height;
-
 			glfwSetWindowSizeCallback(data, [](GLFWwindow* window, int width, int height)
 				{
 					glViewport(0, 0, width, height);
 				});
 		}
 
+		const WindowSize& GetWindowSize() 
+		{
+			glfwGetWindowSize(data, &windowSize.width, &windowSize.height);
+			return windowSize;
+		}
+
 	public:
 		GLFWwindow* data;
-		int width, height;
+		WindowSize windowSize;
 	};
 }

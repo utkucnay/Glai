@@ -7,7 +7,7 @@ namespace Glai::Renderer
 	struct Vertex
 	{
 		Vertex() = default;
-		Vertex(glm::vec3 pos, glm::vec4 vertexColor, glm::vec2 texCord) : pos(pos), vertexColor(vertexColor), texCord(texCord)  {}
+		Vertex(const glm::vec3& pos, const glm::vec4& vertexColor, const glm::vec2& texCord) : pos(pos), vertexColor(vertexColor), texCord(texCord)  {}
 
 		glm::vec3 pos;
 		glm::vec4 vertexColor;
@@ -16,21 +16,63 @@ namespace Glai::Renderer
 
 	struct Quad
 	{
-		Quad()
+		Quad(int instanceCount = 0)
 		{
 			vertexs.at(0) = Vertex(glm::vec3(0.5, 0.5, 0), glm::vec4(1, 1, 1, 1), glm::vec2(1, 1));
 			vertexs.at(1) = Vertex(glm::vec3(0.5, -0.5, 0), glm::vec4(1, 1, 1, 1), glm::vec2(0, 1));
 			vertexs.at(2) = Vertex(glm::vec3(-0.5, -0.5, 0), glm::vec4(1, 1, 1, 1), glm::vec2(0, 0));
 			vertexs.at(3) = Vertex(glm::vec3(-0.5, 0.5, 0), glm::vec4(1, 1, 1, 1), glm::vec2(1, 0));
 
-			indices.at(0) = 0;
-			indices.at(1) = 1;
-			indices.at(2) = 3;
-			indices.at(3) = 1;
-			indices.at(4) = 2;
-			indices.at(5) = 3;
+			indices.at(0) = 0 + 4 * instanceCount;
+			indices.at(1) = 1 + 4 * instanceCount;
+			indices.at(2) = 3 + 4 * instanceCount;
+			indices.at(3) = 1 + 4 * instanceCount;
+			indices.at(4) = 2 + 4 * instanceCount;
+			indices.at(5) = 3 + 4 * instanceCount;
 		}
-		Array<Vertex, 4> vertexs;
-		Array<int, 6> indices;
+
+
+
+		Array<Vertex, 4>	vertexs;
+		Array<int, 6>		indices;
 	};
+
+	struct InstancedVertex : Vertex
+	{
+		InstancedVertex(const glm::vec3& pos, const glm::vec4& vertexColor, const glm::vec2& texCord, const glm::mat4& model, const int& texID) :
+			Vertex(pos, vertexColor, texCord), model(model), texID(texID) {}
+
+		InstancedVertex(const Vertex& vertex, const glm::mat4& model, const int& texID) :
+			Vertex(vertex), model(model), texID(texID) {}
+
+		glm::mat4 model;
+		int texID;
+	};
+
+	struct InstancedQuad
+	{
+		InstancedQuad() {}
+		Vector<InstancedVertex>	vertexs;
+		Vector<int>				indices;
+		int						count = 0;
+	};
+
+	static void AddQuad(InstancedQuad* iQuad, int textureID = 0)
+	{
+		iQuad->vertexs.push_back(InstancedVertex(Vertex(glm::vec3(0.5, 0.5, 0), glm::vec4(1, 1, 1, 1), glm::vec2(1, 1)), glm::mat4(1.0f), textureID));
+		iQuad->vertexs.push_back(InstancedVertex(Vertex(glm::vec3(0.5, -0.5, 0), glm::vec4(1, 1, 1, 1), glm::vec2(0, 1)), glm::mat4(1.0f), textureID));
+		iQuad->vertexs.push_back(InstancedVertex(Vertex(glm::vec3(-0.5, -0.5, 0), glm::vec4(1, 1, 1, 1), glm::vec2(0, 0)), glm::mat4(1.0f), textureID));
+		iQuad->vertexs.push_back(InstancedVertex(Vertex(glm::vec3(-0.5, 0.5, 0), glm::vec4(1, 1, 1, 1), glm::vec2(1, 0)), glm::mat4(1.0f), textureID));
+
+		int count = iQuad->count;
+
+		iQuad->indices.push_back(0 + 4 * count);
+		iQuad->indices.push_back(1 + 4 * count);
+		iQuad->indices.push_back(3 + 4 * count);
+		iQuad->indices.push_back(1 + 4 * count);
+		iQuad->indices.push_back(2 + 4 * count);
+		iQuad->indices.push_back(3 + 4 * count);
+
+		iQuad->count++;
+	}
 }

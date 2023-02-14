@@ -5,7 +5,9 @@ namespace Glai::Renderer::Shader
 	class Shader
 	{
     public:
-        Shader(const char* vertexPath, const char* fragmentPath);
+        Shader() = default;
+
+        void CreateShader(const char* vertexPath, const char* fragmentPath);
     public:
         void Use();
 
@@ -15,8 +17,8 @@ namespace Glai::Renderer::Shader
         void setMat4(const std::string& name, glm::mat4 value) const;
 
     public:
-        unsigned int ID;
+        unsigned int ID = -1;
         std::string name;
-        int nameHash;
+        int nameHash = 0;
 	};
 }
