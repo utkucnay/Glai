@@ -8,12 +8,14 @@
 #include <glm/gtx/transform.hpp>
 
 #include "Renderer/Sprite.h"
+#include "Renderer/Camera.h"
 
 Glai::Engine::~Engine()
 {
 }
 
 Glai::Renderer::BatchSprite* sprite;
+Glai::Renderer::OrtographicCamera* camera;
 
 void Glai::Engine::EngineStart()
 {
@@ -40,8 +42,7 @@ void Glai::Engine::EngineStart()
 
 	sprite = new Renderer::BatchSprite();
 
-	sprite->AddSprite();
-
+	camera = new Renderer::OrtographicCamera(window);
 }
 
 void Glai::Engine::EngineUpdate()
@@ -56,8 +57,11 @@ void Glai::Engine::EngineUpdate()
 	glClearColor(0, 0, 0, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
+	sprite->AddSprite();
 
-	sprite->Draw();
+	sprite->Draw(camera);
+
+	sprite->RemoveSprite();
 
 	glfwSwapBuffers(window->data);
 	glfwPollEvents();

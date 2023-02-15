@@ -9,6 +9,7 @@ namespace Glai
 	public:
 		struct WindowSize
 		{
+			WindowSize() : width(0) , height(0) {}
 			int width, height;
 		};
 	public:
