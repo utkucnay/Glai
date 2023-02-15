@@ -6,14 +6,15 @@
 
 namespace Glai::Renderer
 {
-	class Sprite
+	class BatchSprite
 	{
 	public:
-		Sprite();
+		BatchSprite();
 
 	public:
 		void Draw();
 		void AddSprite() { AddQuad(&iQuad); }
+		void RemoveSprite() {  }
 
 	public:
 		InstancedQuad iQuad;
@@ -22,5 +23,6 @@ namespace Glai::Renderer
 	private:
 		int						vectorLimit = 1000;
 		unsigned int			VAO;
+		//int* indices;
 	};
 }

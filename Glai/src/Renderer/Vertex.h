@@ -51,10 +51,9 @@ namespace Glai::Renderer
 
 	struct InstancedQuad
 	{
-		InstancedQuad() {}
+		InstancedQuad() : count(0) {}
 		Vector<InstancedVertex>	vertexs;
-		Vector<int>				indices;
-		int						count = 0;
+		int						count;
 	};
 
 	static void AddQuad(InstancedQuad* iQuad, int textureID = 0)
@@ -63,16 +62,5 @@ namespace Glai::Renderer
 		iQuad->vertexs.push_back(InstancedVertex(Vertex(glm::vec3(0.5, -0.5, 0), glm::vec4(1, 1, 1, 1), glm::vec2(0, 1)), glm::mat4(1.0f), textureID));
 		iQuad->vertexs.push_back(InstancedVertex(Vertex(glm::vec3(-0.5, -0.5, 0), glm::vec4(1, 1, 1, 1), glm::vec2(0, 0)), glm::mat4(1.0f), textureID));
 		iQuad->vertexs.push_back(InstancedVertex(Vertex(glm::vec3(-0.5, 0.5, 0), glm::vec4(1, 1, 1, 1), glm::vec2(1, 0)), glm::mat4(1.0f), textureID));
-
-		int count = iQuad->count;
-
-		iQuad->indices.push_back(0 + 4 * count);
-		iQuad->indices.push_back(1 + 4 * count);
-		iQuad->indices.push_back(3 + 4 * count);
-		iQuad->indices.push_back(1 + 4 * count);
-		iQuad->indices.push_back(2 + 4 * count);
-		iQuad->indices.push_back(3 + 4 * count);
-
-		iQuad->count++;
 	}
 }

@@ -13,7 +13,7 @@ Glai::Engine::~Engine()
 {
 }
 
-Glai::Renderer::Sprite* sprite;
+Glai::Renderer::BatchSprite* sprite;
 
 void Glai::Engine::EngineStart()
 {
@@ -38,13 +38,15 @@ void Glai::Engine::EngineStart()
 	Singleton<JobSystem::ThreadSystem> threadInit();
 	Singleton<JobSystem::JobSystem> jobInit();
 
-	sprite = new Renderer::Sprite();
+	sprite = new Renderer::BatchSprite();
 
 	sprite->AddSprite();
+
 }
 
 void Glai::Engine::EngineUpdate()
 {
+
 	//Frame Phases
 	frame->FrameInit();
 	frame->FramePhase1();
@@ -53,6 +55,7 @@ void Glai::Engine::EngineUpdate()
 
 	glClearColor(0, 0, 0, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
+
 
 	sprite->Draw();
 
