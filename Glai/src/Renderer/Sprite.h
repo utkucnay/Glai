@@ -7,15 +7,15 @@
 
 namespace Glai::Renderer
 {
-	class BatchSprite
+	class BatchSpriteSystem
 	{
 	public:
-		BatchSprite();
+		BatchSpriteSystem();
 
 	public:
-		void Draw(OrtographicCamera* camera);
-		void AddSprite() { AddQuad(&iQuad); }
-		void RemoveSprite() { iQuad.vertexs.clear(); }
+		void Draw(Ref<Camera> camera);
+		void AddSprite(const glm::mat4& model, const int& textureID = 0) { AddQuad(&iQuad, model, textureID); }
+		void RemoveAllSprite() { iQuad.vertexs.clear(); }
 
 	public:
 		InstancedQuad iQuad;

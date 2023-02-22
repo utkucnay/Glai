@@ -1,7 +1,8 @@
 #include "Sprite.h"
 #include <glm/gtx/transform.hpp>
 #include "Camera.h"
-Glai::Renderer::BatchSprite::BatchSprite()
+
+Glai::Renderer::BatchSpriteSystem::BatchSpriteSystem()
 {
 	unsigned int VBO;
 	glGenBuffers(1, &VBO);
@@ -28,6 +29,7 @@ Glai::Renderer::BatchSprite::BatchSprite()
 			offset += 4;
 		}
 	}
+
 	unsigned int EBO;
 	glGenBuffers(1, &EBO);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
@@ -59,11 +61,6 @@ Glai::Renderer::BatchSprite::BatchSprite()
 	glEnableVertexAttribArray(7);
 	glVertexAttribPointer(7, 4, GL_FLOAT, GL_FALSE, sizeof(Glai::Renderer::InstancedVertex), (void*)(offsetof(Glai::Renderer::InstancedVertex, Glai::Renderer::InstancedVertex::model) + vec4Size * 3));
 
-	glVertexAttribDivisor(4, 8);
-	glVertexAttribDivisor(5, 8);
-	glVertexAttribDivisor(6, 8);
-	glVertexAttribDivisor(7, 8);
-
 	glBindVertexArray(NULL);
 
 	material = CreateRef<Material::Material>();
@@ -71,7 +68,7 @@ Glai::Renderer::BatchSprite::BatchSprite()
 	material->shader->CreateShader("c:/dev/Glai/Glai/src/Renderer/Shader/Shaders/InstancedVertexShader.glsl", "c:/dev/Glai/Glai/src/Renderer/Shader/Shaders/InstancedFragmentShader.glsl");
 }
 
-void Glai::Renderer::BatchSprite::Draw(OrtographicCamera* camera)
+void Glai::Renderer::BatchSpriteSystem::Draw(Ref<Camera> camera)
 {
 	//shader Stuff
 	material->shader->Use();
@@ -81,6 +78,7 @@ void Glai::Renderer::BatchSprite::Draw(OrtographicCamera* camera)
 
 	glBindVertexArray(VAO);
 	glBufferSubData(GL_ARRAY_BUFFER, 0, iQuad.vertexs.size() * sizeof(Renderer::InstancedVertex), iQuad.vertexs.data());
-	glDrawElements(GL_TRIANGLES, iQuad.vertexs.size() / 4 * 6, GL_UNSIGNED_INT, 0);
+	int amount = iQuad.vertexs.size() / 4;
+	glDrawElementsInstanced(GL_TRIANGLES, amount * 6, GL_UNSIGNED_INT, 0, amount);
 	glBindVertexArray(NULL);
 }

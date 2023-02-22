@@ -30,8 +30,8 @@ namespace Glai::Renderer
 		void UpdateProjection()
 		{
 			auto WinSize = window->GetWindowSize();
-			float hWidth = WinSize.width / 2.0f;
-			float hHeight = WinSize.height / 2.0f;
+			float hWidth = 16 / 2.0f * cameraSize;
+			float hHeight = 9 / 2.0f * cameraSize;
 			projection = glm::ortho(-hWidth, hWidth , -hHeight, hHeight, 0.1f, 300.0f);
 		}
 
@@ -39,6 +39,7 @@ namespace Glai::Renderer
 		Window* window;
 		glm::mat4 view;
 		glm::mat4 projection;
+		float cameraSize = 5;
 	};
 
 

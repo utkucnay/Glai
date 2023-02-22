@@ -57,10 +57,8 @@ namespace Glai::Renderer
 		int						count;
 	};
 
-	static void AddQuad(InstancedQuad* iQuad, int textureID = 0)
+	static void AddQuad(InstancedQuad* iQuad, const glm::mat4& model, int textureID = 0)
 	{
-		glm::mat4 model = glm::mat4(1.0f);
-		model = glm::scale(model, glm::vec3(10, 10, 1));
 		iQuad->vertexs.push_back(InstancedVertex(Vertex(glm::vec3(1, 1, 0), glm::vec4(1, 1, 1, 1), glm::vec2(1, 1)), model, textureID));
 		iQuad->vertexs.push_back(InstancedVertex(Vertex(glm::vec3(1, -1, 0), glm::vec4(1, 1, 1, 1), glm::vec2(0, 1)), model, textureID));
 		iQuad->vertexs.push_back(InstancedVertex(Vertex(glm::vec3(-1, -1, 0), glm::vec4(1, 1, 1, 1), glm::vec2(0, 0)), model, textureID));

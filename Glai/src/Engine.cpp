@@ -14,8 +14,8 @@ Glai::Engine::~Engine()
 {
 }
 
-Glai::Renderer::BatchSprite* sprite;
-Glai::Renderer::OrtographicCamera* camera;
+Glai::Renderer::BatchSpriteSystem* BatchSprite;
+Glai::Ref<Glai::Renderer::Camera> camera;
 
 void Glai::Engine::EngineStart()
 {
@@ -26,7 +26,7 @@ void Glai::Engine::EngineStart()
 		ENG_CORE_ASSERT("GLFW Don't Init")
 	}
 
-	window = new Window(800, 600, "Glai", NULL, NULL);
+	window = new Window(1280, 720, "Glai", NULL, NULL);
 
 	glfwMakeContextCurrent(window->data);
 
@@ -35,14 +35,14 @@ void Glai::Engine::EngineStart()
 		ENG_CORE_ASSERT("Glad Don't Init")
 	}
 
-	glViewport(0, 0, 800, 600);
+	glViewport(0, 0, 1280, 720);
 
 	Singleton<JobSystem::ThreadSystem> threadInit();
 	Singleton<JobSystem::JobSystem> jobInit();
 
-	sprite = new Renderer::BatchSprite();
+	BatchSprite = new Renderer::BatchSpriteSystem();
 
-	camera = new Renderer::OrtographicCamera(window);
+	camera = CreateRef<Renderer::OrtographicCamera>(window);
 }
 
 void Glai::Engine::EngineUpdate()
@@ -53,17 +53,19 @@ void Glai::Engine::EngineUpdate()
 	frame->FramePhase1();
 	frame->FramePhase2();
 	frame->FramePhase3();
+	
+	glm::mat4 model(1.0f);
+	model = glm::translate(model, glm::vec3(30, 0, 0));
+	BatchSprite->AddSprite(model);
+
+	BatchSprite->Draw(camera);
+
+	glfwSwapBuffers(window->data);
 
 	glClearColor(0, 0, 0, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
+	BatchSprite->RemoveAllSprite();
 
-	sprite->AddSprite();
-
-	sprite->Draw(camera);
-
-	sprite->RemoveSprite();
-
-	glfwSwapBuffers(window->data);
 	glfwPollEvents();
 }
 
