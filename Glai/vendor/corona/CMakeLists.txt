@@ -9,7 +9,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/libpng-1.2.1)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/jpeg-6b)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src/libungif-4.1.0)
 
-add_library(corona
+add_library(corona STATIC
 	${src}
 )
 
